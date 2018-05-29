@@ -15,11 +15,12 @@ var someId = process.argv[2];
 knex.select('*')
   .from('famous_people')
   .where('first_name', '=', someId)
+  .orWhere('last_name', '=', someId)
   .then(function(rows) {
     let results = rows
     console.log("Found " + rows.length + " person(s) by the name '" + someId + "':");
     for (let i = 0; i < rows.length; i++) {
-      console.log("- ", (i + 1), ":", results[i].first_name, results[i].last_name, "born '" + results[i].birthdate.toLocaleDateString() + "'");
+      console.log("- ", (i + 1), ":", results[i].first_name, results[i].last_name, "born: '" + results[i].birthdate.toLocaleDateString() + "'");
     }
     knex.destroy();
   })
